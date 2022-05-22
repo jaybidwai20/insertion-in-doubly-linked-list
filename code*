@@ -1,0 +1,118 @@
+#include<bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* prev;
+    node* next;
+    
+    node(int data)
+    {
+        this->data=data;
+        this->prev=NULL;
+        this->next=NULL;
+    }
+};
+void print(node* &head)
+{ 
+    node *temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+
+void getlength(node* head)
+{
+    int counter=0;
+    while(head!=NULL)
+    {
+        head=head->next;
+        counter++;
+    }
+    cout<<"\nthe length of the linked list is "<<counter;
+}
+
+void insertathead(node* &head,int x)
+{  
+    if(head==NULL)
+    {
+        node * temp=new node(x);
+        head=temp;
+    }
+    else
+    {
+    node * temp=new node(x);
+    temp->next=head;
+    head->prev=temp;
+    head=temp;
+    }
+    
+}
+void insertatend(node* &head,int x)
+{
+    node *temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    node* current=new node(x);
+    temp->next=current;
+    current->prev=temp;
+    current->next=NULL;
+// current=temp;
+// temp=current;
+   }
+   
+   void insertinmiddle(node* head,int x,int position)
+   {  
+       node * temp=head;
+       if(position==1)
+       {
+           insertathead(head,x);
+           return;
+       }
+       int i=1;
+       while(i<position-1)
+       {
+           temp=temp->next;
+           i++;
+       }
+       if(temp->next==NULL)
+       {
+           insertatend(head,x);
+           return;
+       }
+       node *store=temp->next;
+       
+       node* nava=new node(x);
+       
+       temp->next=nava;
+       nava->prev=temp;
+       
+       nava->next=store;
+       store->prev=nava;
+       
+       
+   }
+int main()
+{ 
+   
+    node * head=NULL;
+    insertathead(head,40);
+    insertathead(head,30);
+    insertathead(head,20);
+    insertathead(head,10);
+    // print(head);
+    // cout<<endl;
+    // cout<<"inserting the element at the end"<<endl;
+    insertatend(head,50);
+    insertatend(head,60);
+    insertinmiddle(head,55,3);
+    print(head);
+    
+    // getlength(head);
+}
